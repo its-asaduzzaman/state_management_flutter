@@ -13,8 +13,15 @@ class TaskList extends StatelessWidget {
         TaskTile(),
         TaskTile(),
         TaskTile(),
+        TaskTile(),
+        TaskTile(),
+        TaskTile(),
+        TaskTile(),
+        TaskTile(),
+        TaskTile(),
+        TaskTile(),
+        TaskTile(),
       ],
     );
   }
 }
-

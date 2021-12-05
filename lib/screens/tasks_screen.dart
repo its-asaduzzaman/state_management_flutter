@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:state_management/screens/add_task_screen.dart';
 import 'package:state_management/widgets/tasks_list.dart';
 
 class TaskScreen extends StatefulWidget {
@@ -15,13 +16,26 @@ class _TaskScreenState extends State<TaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          showModalBottomSheet<void>(
+            context: context,
+            builder: (BuildContext context){
+              return const AddTaskScreen();
+            },
+          );
+        },
+        backgroundColor: Colors.lightBlueAccent,
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.only(top: 60.0, left: 30.0, right: 30, bottom: 30),
+              padding: const EdgeInsets.only(
+                  top: 60.0, left: 30.0, right: 30, bottom: 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const <Widget>[
@@ -70,9 +84,9 @@ class _TaskScreenState extends State<TaskScreen> {
                         topLeft: Radius.circular(20.0),
                         topRight: Radius.circular(20.0))),
                 height: 300.0,
-                child: Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: TaskList()
+                child: const Padding(
+                  padding: EdgeInsets.all(30.0),
+                  child: TaskList(),
                 ),
               ),
             ),
