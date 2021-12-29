@@ -3,8 +3,9 @@ import 'package:state_management/models/task.dart';
 import 'package:state_management/widgets/task_tile.dart';
 
 class TaskList extends StatefulWidget {
+  final List<Task> tasks;
   const TaskList({
-    Key? key,
+    Key? key, required this.tasks
   }) : super(key: key);
 
   @override
@@ -12,27 +13,22 @@ class TaskList extends StatefulWidget {
 }
 
 class _TaskListState extends State<TaskList> {
-  List<Task> tasks = [
-    Task(name: 'buy milk', isDone: false),
-    Task(name: 'buy eggs', isDone: false),
-    Task(name: 'buy bread', isDone: false),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) {
         return TaskTile(
-          isCheck: tasks[index].isDone,
-          taskTitle: tasks[index].name,
+          isCheck: widget.tasks[index].isDone,
+          taskTitle: widget.tasks[index].name,
           checkboxCallBack: (bool? checkboxState) {
             setState(() {
-              tasks[index].toggleDone();
+              widget.tasks[index].toggleDone();
             });
           },
         );
       },
-      itemCount: tasks.length,
+      itemCount: widget.tasks.length,
     );
   }
 }

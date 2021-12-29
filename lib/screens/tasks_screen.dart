@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:state_management/screens/add_task_screen.dart';
 import 'package:state_management/widgets/tasks_list.dart';
+import 'package:state_management/models/task.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({Key? key}) : super(key: key);
@@ -10,6 +11,11 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
+  List<Task> tasks = [
+    Task(name: 'buy milk', isDone: false),
+    Task(name: 'buy eggs', isDone: false),
+    Task(name: 'buy bread', isDone: false),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +26,15 @@ class _TaskScreenState extends State<TaskScreen> {
         onPressed: () {
           showModalBottomSheet<void>(
             context: context,
-            builder: (BuildContext context){
-              return const AddTaskScreen();
+            builder: (BuildContext context) {
+              return AddTaskScreen(
+                addTaskCallback: (newTask) {
+                  setState(() {
+                    tasks.add(Task(name: newTask, isDone: false));
+                  });
+                  Navigator.pop(context);
+                },
+              );
             },
           );
         },
@@ -83,9 +96,11 @@ class _TaskScreenState extends State<TaskScreen> {
                         topLeft: Radius.circular(20.0),
                         topRight: Radius.circular(20.0))),
                 height: 300.0,
-                child: const Padding(
-                  padding: EdgeInsets.all(30.0),
-                  child: TaskList(),
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: TaskList(
+                    tasks: tasks,
+                  ),
                 ),
               ),
             ),
